@@ -154,12 +154,21 @@
     <ClCompile Include="src\FrameRate.cpp" />
     <ClCompile Include="src\LinearAllocator.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Scene\Game.cpp" />
+    <ClCompile Include="src\Scene\Result.cpp" />
+    <ClCompile Include="src\Scene\Title.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameRate.h" />
     <ClInclude Include="src\IMemoryAllocator.h" />
     <ClInclude Include="src\LinearAllocator.h" />
+    <ClInclude Include="src\SceneManager.h" />
+    <ClInclude Include="src\Scene\Game.h" />
+    <ClInclude Include="src\Scene\IScene.h" />
+    <ClInclude Include="src\Scene\Result.h" />
+    <ClInclude Include="src\Scene\Title.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

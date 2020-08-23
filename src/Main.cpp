@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Utils.h"
 #include "FrameRate.h"
+#include "SceneManager.h"
 
 using namespace braille;
 
@@ -9,14 +10,13 @@ int main() {
     initWindow(L"Braille", 18, 120, 45);
 
     FrameRate fps = FrameRate();
-
-    int32_t i = 0;
+    SceneManager::changeScene<Scene::Title>();
 
     while (!GetAsyncKeyState(VK_ESCAPE)) {
         fps.startFrame();
 
-        setCursorPosition(0, 1);
-        std::cout << i++;
+        SceneManager::update();
+        SceneManager::draw();
 
         fps.endFrame();
         fps.print();
