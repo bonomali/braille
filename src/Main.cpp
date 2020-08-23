@@ -9,17 +9,16 @@ using namespace braille;
 int main() {
     initWindow(L"Braille", 18, 120, 45);
 
-    FrameRate fps = FrameRate();
     SceneManager::changeScene<Scene::Title>();
 
     while (!GetAsyncKeyState(VK_ESCAPE)) {
-        fps.startFrame();
+        FrameRate::startFrame();
 
         SceneManager::update();
         SceneManager::draw();
 
-        fps.endFrame();
-        fps.print();
+        FrameRate::endFrame();
+        FrameRate::print();
 
         std::cout.flush();
     }

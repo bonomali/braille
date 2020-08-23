@@ -1,6 +1,17 @@
 #include "FrameRate.h"
 
 namespace braille {
+    std::chrono::system_clock::time_point FrameRate::start;
+    std::chrono::system_clock::time_point FrameRate::end;
+    uint32_t FrameRate::maxFrameRate = 60;
+    double FrameRate::maxElapsed = 1.0 / 60;
+    uint32_t FrameRate::frameRate = 60;
+
+    void FrameRate::setMaxFrameRate(uint32_t fps) {
+        maxFrameRate = fps;
+        maxElapsed = 1.0 / maxFrameRate;
+    }
+
     void FrameRate::startFrame() {
         start = std::chrono::system_clock::now();
     }
@@ -14,7 +25,7 @@ namespace braille {
         }
     }
 
-    void FrameRate::print(int32_t x, int32_t y) const {
+    void FrameRate::print(int32_t x, int32_t y) {
         setCursorPosition(x, y);
         std::cout << "fps: " << min(frameRate, maxFrameRate);
     }
