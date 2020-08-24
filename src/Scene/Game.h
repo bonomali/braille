@@ -22,12 +22,12 @@ namespace braille {
             /// <summary>
             /// シーンの更新
             /// </summary>
-            void update();
+            void update() override;
 
             /// <summary>
             /// シーンの描画
             /// </summary>
-            void draw() const;
+            void draw() const override;
         };
     }
 }
