@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FrameRate.h" />
+    <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\IMemoryAllocator.h" />
     <ClInclude Include="src\LinearAllocator.h" />
     <ClInclude Include="src\SceneManager.h" />
