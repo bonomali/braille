@@ -15,7 +15,7 @@ namespace braille {
             /// <summary>
             /// シーンの初期化
             /// </summary>
-            Title() {}
+            Title();
 
             /// <summary>
             /// シーンの更新

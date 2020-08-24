@@ -2,10 +2,11 @@
 
 namespace braille {
     namespace Scene {
+        Title::Title() {}
+
         void Title::update() {
             if (!!GetAsyncKeyState(VK_SPACE)) {
-                setCursorPosition(0, 1);
-                std::cout << "     ";
+                system("cls");
                 SceneManager::changeScene<Scene::Game>();
             }
         }

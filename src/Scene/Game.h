@@ -3,6 +3,7 @@
 #include <iostream>
 #include "../Utils.h"
 #include "../SceneManager.h"
+#include "../Grid.h"
 
 namespace braille {
     namespace Scene {
@@ -12,12 +13,12 @@ namespace braille {
         class Game : public IScene {
         private:
             int32_t i;
+            Grid<int32_t> g;
         public:
             /// <summary>
             /// シーンの初期化
             /// </summary>
-            Game()
-                : i(0) {}
+            Game();
 
             /// <summary>
             /// シーンの更新
