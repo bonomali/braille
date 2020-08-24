@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <cstdint>
+#include "Utils.h"
 #include "iMemoryAllocator.h"
 
 namespace braille {
@@ -9,6 +10,32 @@ namespace braille {
     /// 線形アロケータの管理クラス
     /// </summary>
     class LinearAllocator : public IMemoryAllocator {
+    private:
+        /// <summary>
+        /// メモリ領域の管理情報
+        /// </summary>
+        struct ControlElem {
+            size_t size;
+            ControlElem* prevPtr;
+            ControlElem* nextPtr;
+            bool isUse;
+        };
+
+        /// <summary>
+        /// 管理情報のルートノードのアドレス
+        /// </summary>
+        uint8_t* buffer;
+
+        /// <summary>
+        /// 管理情報のルートノードのポインタ
+        /// </summary>
+        ControlElem* rootElem;
+
+        /// <summary>
+        /// 未割り当てメモリの合計サイズ
+        /// </summary>
+        size_t freeSize;
+
     public:
         /// <summary>
         /// 線形アロケータの初期化
@@ -22,39 +49,13 @@ namespace braille {
         /// 新しいメモリ領域の割り当て
         /// </summary>
         /// <param name="size">割り当てるメモリサイズ</param>
-        /// <returns></returns>
-        void* Alloc(const size_t size);
+        /// <returns>割り当てたメモリの先頭アドレス</returns>
+        void* alloc(const size_t size) override;
 
         /// <summary>
         /// メモリの解放
         /// </summary>
         /// <param name="ptr">解放するアドレス</param>
-        void Free(void* ptr);
-
-    private:
-        /// <summary>
-        /// メモリ領域の管理情報
-        /// </summary>
-        struct ControlElem {
-            size_t size;
-            ControlElem* prev_ptr;
-            ControlElem* next_ptr;
-            bool is_use;
-        };
-
-        /// <summary>
-        /// 管理情報のルートノードのアドレス
-        /// </summary>
-        uint8_t* m_buffer;
-
-        /// <summary>
-        /// 管理情報のルートノードのポインタ
-        /// </summary>
-        ControlElem* m_root_elem;
-
-        /// <summary>
-        /// 未割り当てメモリの合計サイズ
-        /// </summary>
-        size_t m_free_size;
+        void free(void* ptr) override;
     };
 }
