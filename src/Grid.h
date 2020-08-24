@@ -1,9 +1,13 @@
 #pragma once
-#include "LinearAllocator.h"
+#include <vector>
+#include "AllocatorWrapper.h"
 
 namespace braille {
     template <class T>
     class Grid {
+    public:
+        using vector = std::vector<T, AllocatorWrapper<T>>;
+
     private:
         /// <summary>
         /// グリッドの幅
@@ -18,7 +22,7 @@ namespace braille {
         /// <summary>
         /// グリッドの中身
         /// </summary>
-        T* data;
+        vector data;
 
     public:
         /// <summary>
@@ -28,9 +32,8 @@ namespace braille {
         /// <param name="_height">グリッドの高さ</param>
         Grid(size_t _width, size_t _height)
             : width(_width)
-            , height(_height) {
-            data = LinearAllocator::alloc<T>(width * height);
-        }
+            , height(_height)
+            , data(vector(width* height)) {}
 
         /// <summary>
         /// グリッドの初期化
@@ -39,15 +42,9 @@ namespace braille {
         /// <param name="_height">グリッドの高さ</param>
         /// <param name="val">初期値</param>
         Grid(size_t _width, size_t _height, T val)
-            :Grid(_width, _height) {
-            for (size_t i = 0; i < width * height; i++) {
-                data[i] = val;
-            }
-        }
-
-        ~Grid() {
-            LinearAllocator::free(data);
-        }
+            : width(_width)
+            , height(_height)
+            , data(vector(width* height, val)) {}
 
         /// <summary>
         /// 値をセットする

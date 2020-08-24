@@ -53,17 +53,6 @@ namespace braille {
         static void* alloc(const size_t size);
 
         /// <summary>
-        /// 新しいメモリ領域の割り当て
-        /// </summary>
-        /// <typeparam name="T">割り当てる型</typeparam>
-        /// <param name="count">割り当てる値の数</param>
-        /// <returns>割り当てたメモリの先頭アドレス</returns>
-        template <class T>
-        static T* alloc(const size_t count) {
-            return reinterpret_cast<T*>(alloc(count * sizeof(T)));
-        }
-
-        /// <summary>
         /// メモリの解放
         /// </summary>
         /// <param name="ptr">解放するアドレス</param>
