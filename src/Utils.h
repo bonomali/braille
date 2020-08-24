@@ -32,7 +32,7 @@ namespace braille {
     /// </summary>
     /// <param name="x">カーソル位置のx座標</param>
     /// <param name="y">カーソル位置のy座標</param>
-    void setCursorPosition(int32_t x, int32_t y);
+    void setCursorPosition(size_t x, size_t y);
 
     /// <summary>
     /// ウィンドウの初期化
@@ -41,5 +41,5 @@ namespace braille {
     /// <param name="fontSize">フォントサイズ</param>
     /// <param name="width">ウィンドウの幅(文字数)</param>
     /// <param name="height">ウィンドウの高さ(文字数)</param>
-    void initWindow(LPCWSTR title = L"", int32_t fontSize = 16, int32_t width = 120, int32_t height = 30);
+    void initWindow(LPCWSTR title = L"", size_t fontSize = 16, size_t width = 120, size_t height = 30);
 }

@@ -10,13 +10,13 @@ namespace braille {
         ExitProcess(-1);
     }
 
-    void setCursorPosition(int32_t x, int32_t y) { // FIXME: 一番右下に文字を出力するとカーソルが次の行に出るためスクロールしてしまう
+    void setCursorPosition(size_t x, size_t y) { // FIXME: 一番右下に文字を出力するとカーソルが次の行に出るためスクロールしてしまう
         std::cout.flush();
         COORD pos = { (SHORT)x, (SHORT)y };
         SetConsoleCursorPosition(hStdout, pos);
     }
 
-    void initWindow(LPCWSTR title, int32_t fontSize, int32_t width, int32_t height) {
+    void initWindow(LPCWSTR title, size_t fontSize, size_t width, size_t height) {
         CONSOLE_FONT_INFOEX fontInfo;
         SMALL_RECT windowSize = { 0, 0, (SHORT)width - 1, (SHORT)height - 1 }; // WARNING: 指定できる範囲はフォントサイズによって変わる
         COORD dwSize = { (SHORT)width, (SHORT)height };

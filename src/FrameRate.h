@@ -60,6 +60,6 @@ namespace braille {
         /// </summary>
         /// <param name="x">カーソル位置のx座標</param>
         /// <param name="y">カーソル位置のy座標</param>
-        static void print(int32_t x = 0, int32_t y = 0);
+        static void print(size_t x = 0, size_t y = 0);
     };
 }

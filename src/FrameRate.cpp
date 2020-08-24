@@ -25,7 +25,7 @@ namespace braille {
         }
     }
 
-    void FrameRate::print(int32_t x, int32_t y) {
+    void FrameRate::print(size_t x, size_t y) {
         setCursorPosition(x, y);
         std::cout << "fps: " << min(frameRate, maxFrameRate);
     }

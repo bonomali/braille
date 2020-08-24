@@ -11,9 +11,6 @@ namespace braille {
     /// </summary>
     class SceneManager {
     private:
-        /// <summary>
-        /// インスタンス化しない
-        /// </summary>
         SceneManager() {}
 
         /// <summary>
