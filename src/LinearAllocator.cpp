@@ -1,8 +1,11 @@
 #include "LinearAllocator.h"
 
-
 namespace braille {
-    LinearAllocator::LinearAllocator(void* ptr, const size_t size) {
+    uint8_t* LinearAllocator::buffer;
+    LinearAllocator::ControlElem* LinearAllocator::rootElem;
+    size_t LinearAllocator::freeSize;
+
+    void LinearAllocator::init(void* ptr, const size_t size) {
         // ptrがnullptrだった時やsizeがControlElemサイズ未満の時は終了
         if (ptr == nullptr || size < sizeof(ControlElem)) {
             throwError();

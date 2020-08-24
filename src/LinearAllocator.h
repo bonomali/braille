@@ -1,5 +1,4 @@
 #pragma once
-
 #include <assert.h>
 #include <cstdint>
 #include "Utils.h"
@@ -11,6 +10,8 @@ namespace braille {
     /// </summary>
     class LinearAllocator : public IMemoryAllocator {
     private:
+        LinearAllocator();
+
         /// <summary>
         /// メモリ領域の管理情報
         /// </summary>
@@ -24,17 +25,17 @@ namespace braille {
         /// <summary>
         /// 管理情報のルートノードのアドレス
         /// </summary>
-        uint8_t* buffer;
+        static uint8_t* buffer;
 
         /// <summary>
         /// 管理情報のルートノードのポインタ
         /// </summary>
-        ControlElem* rootElem;
+        static ControlElem* rootElem;
 
         /// <summary>
         /// 未割り当てメモリの合計サイズ
         /// </summary>
-        size_t freeSize;
+        static size_t freeSize;
 
     public:
         /// <summary>
@@ -42,20 +43,30 @@ namespace braille {
         /// </summary>
         /// <param name="ptr">先頭アドレス</param>
         /// <param name="size">確保するメモリサイズ</param>
-        LinearAllocator(void* ptr, const size_t size);
-        ~LinearAllocator() {};
+        static void init(void* ptr, const size_t size);
 
         /// <summary>
         /// 新しいメモリ領域の割り当て
         /// </summary>
         /// <param name="size">割り当てるメモリサイズ</param>
         /// <returns>割り当てたメモリの先頭アドレス</returns>
-        void* alloc(const size_t size) override;
+        static void* alloc(const size_t size);
+
+        /// <summary>
+        /// 新しいメモリ領域の割り当て
+        /// </summary>
+        /// <typeparam name="T">割り当てる型</typeparam>
+        /// <param name="count">割り当てる値の数</param>
+        /// <returns>割り当てたメモリの先頭アドレス</returns>
+        template <class T>
+        static T* alloc(const size_t count) {
+            return reinterpret_cast<T*>(alloc(count * sizeof(T)));
+        }
 
         /// <summary>
         /// メモリの解放
         /// </summary>
         /// <param name="ptr">解放するアドレス</param>
-        void free(void* ptr) override;
+        static void free(void* ptr);
     };
 }
