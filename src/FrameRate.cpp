@@ -1,5 +1,7 @@
 #include "FrameRate.h"
 
+extern std::unique_ptr<braille::Canvas> canvas;
+
 namespace braille {
     std::chrono::system_clock::time_point FrameRate::start;
     std::chrono::system_clock::time_point FrameRate::end;
@@ -26,7 +28,6 @@ namespace braille {
     }
 
     void FrameRate::print(size_t x, size_t y) {
-        setCursorPosition(x, y);
-        std::cout << "fps: " << min(frameRate, maxFrameRate);
+        canvas->setText(110, 2, "fps: " + std::to_string(min(frameRate, maxFrameRate)));
     }
 }

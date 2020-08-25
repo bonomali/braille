@@ -10,16 +10,9 @@ namespace braille {
         ExitProcess(-1);
     }
 
-    void setCursorPosition(size_t x, size_t y) { // FIXME: 一番右下に文字を出力するとカーソルが次の行に出るためスクロールしてしまう
-        std::cout.flush();
-        COORD pos = { (SHORT)x, (SHORT)y };
-        SetConsoleCursorPosition(hStdout, pos);
-    }
-
-    void initWindow(LPCWSTR title, size_t fontSize, size_t width, size_t height) {
+    void initWindow(LPCWSTR title, size_t fontSize, SMALL_RECT& windowSize, HANDLE(&screenBuffer)[2]) {
         CONSOLE_FONT_INFOEX fontInfo;
-        SMALL_RECT windowSize = { 0, 0, (SHORT)width - 1, (SHORT)height - 1 }; // WARNING: 指定できる範囲はフォントサイズによって変わる
-        COORD dwSize = { (SHORT)width, (SHORT)height };
+        COORD dwSize = { windowSize.Right + 1, windowSize.Bottom + 1 };
         CONSOLE_CURSOR_INFO  cursorInfo;
         DWORD oldMode;
 
@@ -35,8 +28,10 @@ namespace braille {
         }
 
         // ウィンドウサイズの設定
-        if (!SetConsoleScreenBufferSize(hStdout, dwSize) ||
-            !SetConsoleWindowInfo(hStdout, TRUE, &windowSize)) {
+        if (!SetConsoleScreenBufferSize(screenBuffer[0], dwSize) ||
+            !SetConsoleWindowInfo(screenBuffer[0], TRUE, &windowSize) ||
+            !SetConsoleScreenBufferSize(screenBuffer[1], dwSize) ||
+            !SetConsoleWindowInfo(screenBuffer[1], TRUE, &windowSize)) {
             // 設定できる最大サイズを出力
             CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 
@@ -52,11 +47,13 @@ namespace braille {
         }
 
         // カーソルの非表示
-        if (!GetConsoleCursorInfo(hStdout, &cursorInfo)) {
+        if (!GetConsoleCursorInfo(screenBuffer[0], &cursorInfo) ||
+            !GetConsoleCursorInfo(screenBuffer[1], &cursorInfo)) {
             throwError();
         }
         cursorInfo.bVisible = false;
-        if (!SetConsoleCursorInfo(hStdout, &cursorInfo)) {
+        if (!SetConsoleCursorInfo(screenBuffer[0], &cursorInfo) ||
+            !SetConsoleCursorInfo(screenBuffer[1], &cursorInfo)) {
             throwError();
         }
 

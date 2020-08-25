@@ -4,6 +4,9 @@
 #include "Scene/Title.h"
 #include "Scene/Game.h"
 #include "Scene/Result.h"
+#include "Canvas.h"
+
+extern std::unique_ptr<braille::Canvas> canvas;
 
 namespace braille {
     /// <summary>

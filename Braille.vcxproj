@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Canvas.cpp" />
     <ClCompile Include="src\FrameRate.cpp" />
     <ClCompile Include="src\LinearAllocator.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AllocatorWrapper.h" />
+    <ClInclude Include="src\Canvas.h" />
     <ClInclude Include="src\FrameRate.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\IMemoryAllocator.h" />

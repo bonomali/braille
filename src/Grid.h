@@ -8,7 +8,7 @@ namespace braille {
     public:
         using vector = std::vector<T, AllocatorWrapper<T>>;
 
-    private:
+    protected:
         /// <summary>
         /// グリッドの幅
         /// </summary>
@@ -64,6 +64,14 @@ namespace braille {
         /// <returns>取得した値</returns>
         const T get(size_t x, size_t y) const {
             return data[y * width + x];
+        }
+
+        /// <summary>
+        /// グリッドを値で埋める
+        /// </summary>
+        /// <param name="val">埋める値</param>
+        void fill(T val) {
+            std::fill(data.begin(), data.end(), val);
         }
 
         /// <summary>

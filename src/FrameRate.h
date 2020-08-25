@@ -3,7 +3,9 @@
 #include <chrono>
 #include <cstdint>
 #include <iostream>
+#include <string>
 #include "Utils.h"
+#include "Canvas.h"
 
 namespace braille {
     /// <summary>

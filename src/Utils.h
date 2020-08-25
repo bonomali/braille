@@ -28,18 +28,11 @@ namespace braille {
     void _throwError(const char* filename, int line, const char* funcname);
 
     /// <summary>
-    /// カーソル位置の設定
-    /// </summary>
-    /// <param name="x">カーソル位置のx座標</param>
-    /// <param name="y">カーソル位置のy座標</param>
-    void setCursorPosition(size_t x, size_t y);
-
-    /// <summary>
     /// ウィンドウの初期化
     /// </summary>
     /// <param name="title">ウィンドウタイトル</param>
     /// <param name="fontSize">フォントサイズ</param>
     /// <param name="width">ウィンドウの幅(文字数)</param>
     /// <param name="height">ウィンドウの高さ(文字数)</param>
-    void initWindow(LPCWSTR title = L"", size_t fontSize = 16, size_t width = 120, size_t height = 30);
+    void initWindow(LPCWSTR title, size_t fontSize, SMALL_RECT& windowSize, HANDLE(&screenBuffer)[2]);
 }
