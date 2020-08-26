@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="src\Canvas.cpp" />
     <ClCompile Include="src\FrameRate.cpp" />
+    <ClCompile Include="src\KeyInput.cpp" />
     <ClCompile Include="src\LinearAllocator.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="src\FrameRate.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\IMemoryAllocator.h" />
+    <ClInclude Include="src\KeyInput.h" />
     <ClInclude Include="src\LinearAllocator.h" />
     <ClInclude Include="src\SceneManager.h" />
     <ClInclude Include="src\Scene\Game.h" />

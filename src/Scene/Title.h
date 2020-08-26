@@ -3,6 +3,7 @@
 #include <iostream>
 #include "../Utils.h"
 #include "../SceneManager.h"
+#include "../KeyInput.h"
 
 namespace braille {
     namespace Scene {
@@ -11,6 +12,7 @@ namespace braille {
         /// </summary>
         class Title : public IScene {
         private:
+            KeyInput spaceKey = KeyInput(VK_SPACE);
         public:
             /// <summary>
             /// ƒV[ƒ“‚Ì‰Šú‰»

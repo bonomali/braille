@@ -22,7 +22,7 @@ namespace braille {
         void Game::update() {
             canvas->clear(playerPos.X, playerPos.Y, sprite["player1"].getWidth(), sprite["player1"].getHeight());
             anim = (anim + 1) % 16;
-            if (!!GetAsyncKeyState(VK_SHIFT)) {
+            if (keyInput["space"].clicked()) {
                 SceneManager::changeScene<Scene::Result>();
             }
         }

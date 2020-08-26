@@ -5,11 +5,13 @@
 #include "SceneManager.h"
 #include "LinearAllocator.h"
 #include "Canvas.h"
+#include "KeyInput.h"
 
 using namespace braille;
 
 std::unique_ptr<Canvas> canvas;
 std::map<std::string, Canvas> sprite;
+std::map<std::string, KeyInput> keyInput;
 
 int main() {
     // メモリアロケータの用意
@@ -42,6 +44,10 @@ int main() {
         }
     }
 
+    // キーボード設定
+    keyInput["space"] = KeyInput(VK_SPACE);
+    keyInput["esc"] = KeyInput(VK_ESCAPE);
+
     // アセットの読み込み
     sprite["title"] = Canvas(200, 52);
     sprite["title"].loadFromFile("./assets/title.txt");
@@ -51,12 +57,16 @@ int main() {
     sprite["player1"].loadFromFile("./assets/player1.txt");
     sprite["player2"] = Canvas(24, 12);
     sprite["player2"].loadFromFile("./assets/player2.txt");
+    sprite["enemy"] = Canvas(22, 12);
+    sprite["enemy"].loadFromFile("./assets/enemy.txt");
+    sprite["missile"] = Canvas(12, 12);
+    sprite["missile"].loadFromFile("./assets/missile.txt");
 
     // キャンバスとシーンの初期化
     canvas = std::make_unique<Canvas>(consoleWidth * 2, consoleHeight * 4);
     SceneManager::changeScene<Scene::Title>();
 
-    while (!GetAsyncKeyState(VK_ESCAPE)) {
+    while (!keyInput["esc"].clicked()) {
         FrameRate::startFrame();
 
         SceneManager::update();

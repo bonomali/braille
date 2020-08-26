@@ -23,7 +23,7 @@ namespace braille {
         }
 
         void Title::update() {
-            if (!!GetAsyncKeyState(VK_SPACE)) {
+            if (keyInput["space"].clicked()) {
                 SceneManager::changeScene<Scene::Game>();
             }
         }

@@ -6,9 +6,11 @@
 #include "Scene/Game.h"
 #include "Scene/Result.h"
 #include "Canvas.h"
+#include "KeyInput.h"
 
 extern std::unique_ptr<braille::Canvas> canvas;
 extern std::map<std::string, braille::Canvas> sprite;
+extern std::map<std::string, braille::KeyInput> keyInput;
 
 namespace braille {
     /// <summary>
