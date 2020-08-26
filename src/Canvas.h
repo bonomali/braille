@@ -87,5 +87,10 @@ namespace braille {
         /// </summary>
         /// <param name="str">0と1からなる文字列(長さはキャンバスのサイズと同じ)</param>
         void load(std::string str);
+
+        /// <summary>
+        /// 画面をクリアする
+        /// </summary>
+        void clear();
     };
 }
