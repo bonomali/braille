@@ -30,11 +30,16 @@ namespace braille {
         /// </summary>
         /// <param name="_consoleWidth">キャンバスの幅(文字数)</param>
         /// <param name="_consoleHeight">キャンバスの高さ(文字数)</param>
-        Canvas(size_t _consoleWidth, size_t _consoleHeight)
-            : Grid<bool>(_consoleWidth * 2, _consoleHeight * 4, 0)
-            , consoleWidth(_consoleWidth)
-            , consoleHeight(_consoleHeight)
-            , text(Grid<WCHAR>(consoleWidth, consoleHeight, ' ')) {}
+        Canvas(size_t _width, size_t _height)
+            : Grid<bool>(_width, _height, 0)
+            , consoleWidth(_width / 2)
+            , consoleHeight(_height / 4)
+            , text(Grid<WCHAR>(consoleWidth, consoleHeight, ' ')) {
+            if (width % 2 != 0 || height % 4 != 0) {
+                std::cout << width << ", " << height << std::endl;
+                throwError();
+            }
+        }
 
         /// <summary>
         /// キャンバスのドットをコンソール用のグリッドにコピーする
@@ -66,5 +71,19 @@ namespace braille {
         WCHAR getText(size_t consoleX, size_t consoleY) const {
             return text.get(consoleX, consoleY);
         }
+
+        /// <summary>
+        /// 別のキャンバスを自分に描画する
+        /// </summary>
+        /// <param name="x">描画の基準にするx座標</param>
+        /// <param name="y">描画の基準にするy座標</param>
+        /// <param name="sprite">描画するキャンバス</param>
+        void draw(size_t x, size_t y, Canvas& sprite);
+
+        /// <summary>
+        /// 文字列からキャンバスを読み込む
+        /// </summary>
+        /// <param name="str">0と1からなる文字列(長さはキャンバスのサイズと同じ)</param>
+        void load(std::string str);
     };
 }

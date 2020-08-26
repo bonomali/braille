@@ -4,7 +4,7 @@
 #include "FrameRate.h"
 #include "SceneManager.h"
 #include "LinearAllocator.h"
-#include "canvas.h"
+#include "Canvas.h"
 
 using namespace braille;
 
@@ -41,7 +41,7 @@ int main() {
         }
     }
 
-    canvas = std::make_unique<Canvas>(consoleWidth, consoleHeight);
+    canvas = std::make_unique<Canvas>(consoleWidth * 2, consoleHeight * 4);
     for (size_t i = 0; i < canvas->getWidth(); i++) {
         canvas->set(i, 1, 1);
         canvas->set(i, 3, 1);

@@ -26,4 +26,21 @@ namespace braille {
             text.set(consoleX + i, consoleY, s[i]);
         }
     }
+
+    void Canvas::draw(size_t x, size_t y, Canvas& sprite) {
+        for (size_t sy = 0; sy < sprite.getHeight(); sy++) {
+            for (size_t sx = 0; sx < sprite.getWidth(); sx++) {
+                set(x + sx, y + sy, sprite.get(sx, sy));
+            }
+        }
+    }
+
+    void Canvas::load(std::string str) {
+        if (str.size() != width * height) {
+            throwError();
+        }
+        for (size_t i = 0; i < str.size(); i++) {
+            data[i] = str[i] - '0';
+        }
+    }
 }
