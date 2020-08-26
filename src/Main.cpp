@@ -42,21 +42,8 @@ int main() {
         }
     }
 
+    // キャンバスとシーンの初期化
     canvas = std::make_unique<Canvas>(consoleWidth * 2, consoleHeight * 4);
-    for (size_t i = 0; i < canvas->getWidth(); i++) {
-        canvas->set(i, 1, 1);
-        canvas->set(i, 3, 1);
-        canvas->set(i, 45 * 4 - 2, 1);
-        canvas->set(i, 45 * 4 - 4, 1);
-    }
-    for (size_t j = 0; j < canvas->getHeight(); j++) {
-        canvas->set(1, j, 1);
-        canvas->set(3, j, 1);
-        canvas->set(120 * 2 - 2, j, 1);
-        canvas->set(120 * 2 - 4, j, 1);
-    }
-
-    // シーンの初期化
     SceneManager::changeScene<Scene::Title>();
 
     while (!GetAsyncKeyState(VK_ESCAPE)) {

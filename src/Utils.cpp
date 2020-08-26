@@ -64,8 +64,5 @@ namespace braille {
         if (!SetConsoleMode(hStdin, oldMode & ENABLE_EXTENDED_FLAGS)) {
             throwError();
         }
-
-        // 文字コードの設定(文字列の先頭にu8を置いて使える)
-        SetConsoleOutputCP(CP_UTF8);
     }
 }

@@ -43,8 +43,9 @@ namespace braille {
             data[i] = str[i] - '0';
         }
     }
+
     void Canvas::clear() {
-        std::fill(data.begin(), data.end(), 0);
+        fill(0);
         text.fill(' ');
     }
 }
