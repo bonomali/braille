@@ -11,6 +11,8 @@ namespace braille {
         /// </summary>
         class Game : public IScene {
         private:
+            int8_t anim = 0;
+            COORD playerPos = { 20, 84 };
         public:
             /// <summary>
             /// ƒV[ƒ“‚Ì‰Šú‰»

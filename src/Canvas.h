@@ -1,4 +1,6 @@
 #pragma once
+#include <fstream>
+#include <iostream>
 #include "Grid.h"
 
 namespace braille {
@@ -89,8 +91,30 @@ namespace braille {
         void load(std::string str);
 
         /// <summary>
+        /// ファイルからキャンバスを読み込む
+        /// </summary>
+        /// <param name="filename">ファイル名(ファイル内の0と1だけが読み込まれる)</param>
+        void loadFromFile(std::string filename);
+
+        /// <summary>
         /// 画面をクリアする
         /// </summary>
         void clear();
+
+        /// <summary>
+        /// 領域を指定して画面をクリアする
+        /// </summary>
+        /// <param name="x">クリアする基準となるx座標</param>
+        /// <param name="y">クリアする基準となるy座標</param>
+        /// <param name="w">クリアする幅</param>
+        /// <param name="h">クリアする高さ</param>
+        void clear(size_t x, size_t y, size_t w, size_t h) {
+            for (size_t sy = 0; sy < h; sy++) {
+                for (size_t sx = 0; sx < w; sx++) {
+                    set(x + sx, y + sy, 0);
+                    text.set((x + sx) / 2, (y + sy) / 4, ' ');
+                }
+            }
+        }
     };
 }

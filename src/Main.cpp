@@ -34,13 +34,23 @@ int main() {
     HANDLE curScreenBufferHandle;
     CHAR_INFO chiBuffer[consoleWidth * consoleHeight];
     COORD dwSize = { (SHORT)consoleWidth, (SHORT)consoleHeight };
-    COORD buf = { 0, 0 };
+    COORD basis = { 0, 0 };
     bool wbuf = true;
     for (int y = 0; y < consoleHeight; ++y) {
         for (int x = 0; x < consoleWidth; ++x) {
             chiBuffer[x + consoleWidth * y].Attributes = 7; // 黒背景白文字
         }
     }
+
+    // アセットの読み込み
+    sprite["title"] = Canvas(200, 52);
+    sprite["title"].loadFromFile("./assets/title.txt");
+    sprite["instruction"] = Canvas(218, 16);
+    sprite["instruction"].loadFromFile("./assets/instruction.txt");
+    sprite["player1"] = Canvas(24, 12);
+    sprite["player1"].loadFromFile("./assets/player1.txt");
+    sprite["player2"] = Canvas(24, 12);
+    sprite["player2"].loadFromFile("./assets/player2.txt");
 
     // キャンバスとシーンの初期化
     canvas = std::make_unique<Canvas>(consoleWidth * 2, consoleHeight * 4);
@@ -60,7 +70,7 @@ int main() {
                 chiBuffer[x + consoleWidth * y].Char.UnicodeChar = canvas->getText(x, y);
             }
         }
-        WriteConsoleOutput(curScreenBufferHandle, chiBuffer, dwSize, buf, &windowSize);
+        WriteConsoleOutput(curScreenBufferHandle, chiBuffer, dwSize, basis, &windowSize);
         if (!SetConsoleActiveScreenBuffer(curScreenBufferHandle)) {
             throwError();
         }

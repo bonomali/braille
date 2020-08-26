@@ -44,6 +44,22 @@ namespace braille {
         }
     }
 
+    void Canvas::loadFromFile(std::string filename) {
+        std::string str;
+        FILE* fp;
+        fopen_s(&fp, filename.c_str(), "r");
+        if (fp == NULL) {
+            throwError();
+        }
+        int tmp;
+        while ((tmp = fgetc(fp)) != EOF) {
+            if (tmp == '0' || tmp == '1') {
+                str.append(std::string{ (char)tmp });
+            }
+        }
+        load(str);
+    }
+
     void Canvas::clear() {
         fill(0);
         text.fill(' ');
