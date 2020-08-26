@@ -9,6 +9,13 @@
 #define throwError() braille::_throwError(__FILE__, __LINE__, __func__)
 
 namespace braille {
+    struct GameObject {
+        double x;
+        double y;
+        size_t w;
+        size_t h;
+    };
+
     /// <summary>
     /// •W€“ü—Í‚Ìƒnƒ“ƒhƒ‹
     /// </summary>

@@ -11,6 +11,7 @@
 extern std::unique_ptr<braille::Canvas> canvas;
 extern std::map<std::string, braille::Canvas> sprite;
 extern std::map<std::string, braille::KeyInput> keyInput;
+extern int32_t score;
 
 namespace braille {
     /// <summary>

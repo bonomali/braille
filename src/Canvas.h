@@ -26,6 +26,11 @@ namespace braille {
         /// </summary>
         Grid<WCHAR> text;
 
+        /// <summary>
+        /// 出力する文字の属性(色など)
+        /// </summary>
+        Grid<WORD> attrs;
+
     public:
         Canvas() = default;
 
@@ -38,7 +43,8 @@ namespace braille {
             : Grid<bool>(_width, _height, 0)
             , consoleWidth(_width / 2)
             , consoleHeight(_height / 4)
-            , text(Grid<WCHAR>(consoleWidth, consoleHeight, ' ')) {
+            , text(Grid<WCHAR>(consoleWidth, consoleHeight, ' '))
+            , attrs(Grid<WORD>(consoleWidth, consoleHeight, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED)) {
             if (width % 2 != 0 || height % 4 != 0) {
                 std::cout << width << ", " << height << std::endl;
                 throwError();
@@ -72,9 +78,23 @@ namespace braille {
         /// <param name="consoleX">x座標</param>
         /// <param name="consoleY">y座標</param>
         /// <returns>取得した文字</returns>
-        WCHAR getText(size_t consoleX, size_t consoleY) const {
-            return text.get(consoleX, consoleY);
-        }
+        WCHAR getText(size_t consoleX, size_t consoleY) const;
+
+        /// <summary>
+        /// 文字の属性を設定する
+        /// </summary>
+        /// <param name="consoleX">x座標</param>
+        /// <param name="consoleY">y座標</param>
+        /// <param name="attr">設定する属性</param>
+        void setAttr(size_t consoleX, size_t consoleY, WORD attr);
+
+        /// <summary>
+        /// 属性用のグリッドから属性を取得
+        /// </summary>
+        /// <param name="consoleX">x座標</param>
+        /// <param name="consoleY">y座標</param>
+        /// <returns>取得した属性</returns>
+        WORD getAttr(size_t consoleX, size_t consoleY) const;
 
         /// <summary>
         /// 別のキャンバスを自分に描画する
@@ -108,13 +128,6 @@ namespace braille {
         /// <param name="y">クリアする基準となるy座標</param>
         /// <param name="w">クリアする幅</param>
         /// <param name="h">クリアする高さ</param>
-        void clear(size_t x, size_t y, size_t w, size_t h) {
-            for (size_t sy = 0; sy < h; sy++) {
-                for (size_t sx = 0; sx < w; sx++) {
-                    set(x + sx, y + sy, 0);
-                    text.set((x + sx) / 2, (y + sy) / 4, ' ');
-                }
-            }
-        }
+        void clear(size_t x, size_t y, size_t w, size_t h);
     };
 }

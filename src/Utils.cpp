@@ -5,7 +5,7 @@ namespace braille {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
     void _throwError(const char* filename, int line, const char* funcname) {
-        fprintf(stderr, "Error: File \"%s\", line %d, in %s\nPress any key...", filename, line, funcname);
+        fprintf(stderr, "Error: File \"%s\", line %d, in %s\nPress enter key...", filename, line, funcname);
         std::cin.get();
         ExitProcess(-1);
     }
@@ -23,7 +23,8 @@ namespace braille {
         }
         fontInfo.dwFontSize.X = 0;
         fontInfo.dwFontSize.Y = fontSize;
-        if (!SetCurrentConsoleFontEx(hStdout, FALSE, &fontInfo)) {
+        if (!SetCurrentConsoleFontEx(screenBuffer[0], FALSE, &fontInfo) ||
+            !SetCurrentConsoleFontEx(screenBuffer[1], FALSE, &fontInfo)) {
             throwError();
         }
 

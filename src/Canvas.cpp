@@ -27,6 +27,18 @@ namespace braille {
         }
     }
 
+    WCHAR Canvas::getText(size_t consoleX, size_t consoleY) const {
+        return text.get(consoleX, consoleY);
+    }
+
+    void Canvas::setAttr(size_t consoleX, size_t consoleY, WORD attr) {
+        attrs.set(consoleX, consoleY, attr);
+    }
+
+    WORD Canvas::getAttr(size_t consoleX, size_t consoleY) const {
+        return attrs.get(consoleX, consoleY);
+    }
+
     void Canvas::draw(size_t x, size_t y, Canvas& spr) {
         for (size_t sy = 0; sy < spr.getHeight(); sy++) {
             for (size_t sx = 0; sx < spr.getWidth(); sx++) {
@@ -63,5 +75,15 @@ namespace braille {
     void Canvas::clear() {
         fill(0);
         text.fill(' ');
+        attrs.fill(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+    }
+
+    void Canvas::clear(size_t x, size_t y, size_t w, size_t h) {
+        for (size_t sy = 0; sy < h; sy++) {
+            for (size_t sx = 0; sx < w; sx++) {
+                set(x + sx, y + sy, 0);
+                text.set((x + sx) / 2, (y + sy) / 4, ' ');
+            }
+        }
     }
 }

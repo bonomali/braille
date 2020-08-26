@@ -2,7 +2,13 @@
 
 namespace braille {
     namespace Scene {
-        Title::Title() {
+        Title::Title()
+            : titlePos(GameObject{ (canvas->getWidth() - sprite["title"].getWidth()) / 2.0, 20 })
+            , startPos(GameObject{ (canvas->getWidth() - sprite["start"].getWidth()) / 2.0, 144 })
+            , playerPos(GameObject{ 20, 102 })
+            , idPos(GameObject{ 110, 43 }) {
+            score = 0;
+
             canvas->clear();
             for (size_t i = 0; i < canvas->getWidth(); i++) {
                 canvas->set(i, 1, 1);
@@ -16,10 +22,10 @@ namespace braille {
                 canvas->set(canvas->getWidth() - 2, i, 1);
                 canvas->set(canvas->getWidth() - 4, i, 1);
             }
-            canvas->setText(3, 2, "title");
-            canvas->draw(20, 36, sprite["title"]);
-            canvas->draw(12, 124, sprite["instruction"]);
-            canvas->setText(110, 43, "@yurkth");
+            canvas->draw(titlePos.x, titlePos.y, sprite["title"]);
+            canvas->draw(startPos.x, startPos.y, sprite["start"]);
+            canvas->draw(playerPos.x, playerPos.y, sprite["player1"]);
+            canvas->setText(idPos.x, idPos.y, "@yurkth");
         }
 
         void Title::update() {

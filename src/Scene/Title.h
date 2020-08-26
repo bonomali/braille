@@ -12,7 +12,10 @@ namespace braille {
         /// </summary>
         class Title : public IScene {
         private:
-            KeyInput spaceKey = KeyInput(VK_SPACE);
+            GameObject titlePos;
+            GameObject startPos;
+            GameObject playerPos;
+            GameObject idPos;
         public:
             /// <summary>
             /// ƒV[ƒ“‚Ì‰Šú‰»

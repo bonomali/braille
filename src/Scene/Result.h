@@ -11,6 +11,8 @@ namespace braille {
         /// </summary>
         class Result : public IScene {
         private:
+            GameObject gameoverPos;
+            GameObject retryPos;
         public:
             /// <summary>
             /// ƒV[ƒ“‚Ì‰Šú‰»
