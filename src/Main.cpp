@@ -9,6 +9,7 @@
 using namespace braille;
 
 std::unique_ptr<Canvas> canvas;
+std::map<std::string, Canvas> sprite;
 
 int main() {
     // メモリアロケータの用意

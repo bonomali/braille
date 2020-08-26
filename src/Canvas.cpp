@@ -27,10 +27,10 @@ namespace braille {
         }
     }
 
-    void Canvas::draw(size_t x, size_t y, Canvas& sprite) {
-        for (size_t sy = 0; sy < sprite.getHeight(); sy++) {
-            for (size_t sx = 0; sx < sprite.getWidth(); sx++) {
-                set(x + sx, y + sy, sprite.get(sx, sy));
+    void Canvas::draw(size_t x, size_t y, Canvas& spr) {
+        for (size_t sy = 0; sy < spr.getHeight(); sy++) {
+            for (size_t sx = 0; sx < spr.getWidth(); sx++) {
+                set(x + sx, y + sy, spr.get(sx, sy));
             }
         }
     }

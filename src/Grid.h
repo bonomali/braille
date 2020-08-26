@@ -25,6 +25,8 @@ namespace braille {
         vector data;
 
     public:
+        Grid() = default;
+
         /// <summary>
         /// ƒOƒŠƒbƒh‚Ì‰Šú‰»
         /// </summary>

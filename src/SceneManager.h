@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <map>
 #include "Scene/IScene.h"
 #include "Scene/Title.h"
 #include "Scene/Game.h"
@@ -7,6 +8,7 @@
 #include "Canvas.h"
 
 extern std::unique_ptr<braille::Canvas> canvas;
+extern std::map<std::string, braille::Canvas> sprite;
 
 namespace braille {
     /// <summary>

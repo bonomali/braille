@@ -25,6 +25,8 @@ namespace braille {
         Grid<WCHAR> text;
 
     public:
+        Canvas() = default;
+
         /// <summary>
         /// キャンバスの初期化
         /// </summary>
@@ -78,7 +80,7 @@ namespace braille {
         /// <param name="x">描画の基準にするx座標</param>
         /// <param name="y">描画の基準にするy座標</param>
         /// <param name="sprite">描画するキャンバス</param>
-        void draw(size_t x, size_t y, Canvas& sprite);
+        void draw(size_t x, size_t y, Canvas& spr);
 
         /// <summary>
         /// 文字列からキャンバスを読み込む
