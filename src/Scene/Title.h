@@ -12,10 +12,26 @@ namespace braille {
         /// </summary>
         class Title : public IScene {
         private:
+            /// <summary>
+            /// タイトルの位置
+            /// </summary>
             GameObject titlePos;
+
+            /// <summary>
+            /// スタートのテキストの位置
+            /// </summary>
             GameObject startPos;
+
+            /// <summary>
+            /// プレイヤーの位置
+            /// </summary>
             GameObject playerPos;
+
+            /// <summary>
+            /// IDの位置
+            /// </summary>
             GameObject idPos;
+
         public:
             /// <summary>
             /// シーンの初期化

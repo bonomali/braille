@@ -14,6 +14,7 @@ namespace braille {
         /// 1フレーム前のキーの入力状態
         /// </summary>
         bool keyState;
+
     public:
         KeyInput() = default;
 

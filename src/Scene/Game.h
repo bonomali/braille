@@ -31,15 +31,31 @@ namespace braille {
                 double maxX;
             };
 
+            /// <summary>
+            /// スコアの0埋め用の文字列ストリーム
+            /// </summary>
             std::ostringstream ss;
 
+            /// <summary>
+            /// スコアの位置
+            /// </summary>
             GameObject scorePos;
 
+            /// <summary>
+            /// スコアの数字の位置
+            /// </summary>
             std::vector<GameObject, AllocatorWrapper<GameObject>> digitPos;
 
+            /// <summary>
+            /// プレイヤーのデータ
+            /// </summary>
             Player player;
 
+            /// <summary>
+            /// ミサイルのデータ
+            /// </summary>
             std::vector<Missile, AllocatorWrapper<Missile>> missiles;
+
         public:
             /// <summary>
             /// シーンの初期化

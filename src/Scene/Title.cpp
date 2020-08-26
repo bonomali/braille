@@ -22,6 +22,7 @@ namespace braille {
                 canvas->set(canvas->getWidth() - 2, i, 1);
                 canvas->set(canvas->getWidth() - 4, i, 1);
             }
+
             canvas->draw(titlePos.x, titlePos.y, sprite["title"]);
             canvas->draw(startPos.x, startPos.y, sprite["start"]);
             canvas->draw(playerPos.x, playerPos.y, sprite["player1"]);

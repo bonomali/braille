@@ -11,8 +11,16 @@ namespace braille {
         /// </summary>
         class Result : public IScene {
         private:
+            /// <summary>
+            /// ゲームオーバーのテキストの位置
+            /// </summary>
             GameObject gameoverPos;
+
+            /// <summary>
+            /// リトライのテキストの位置
+            /// </summary>
             GameObject retryPos;
+
         public:
             /// <summary>
             /// シーンの初期化

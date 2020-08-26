@@ -30,6 +30,7 @@ namespace braille {
             }
             ss << std::setw(4) << std::setfill('0') << min(score, 9999);
 
+            // キャンバスのクリアと枠線の追加
             canvas->clear();
             for (size_t i = 0; i < canvas->getWidth(); i++) {
                 canvas->set(i, 1, 1);
@@ -43,6 +44,7 @@ namespace braille {
                 canvas->set(canvas->getWidth() - 2, i, 1);
                 canvas->set(canvas->getWidth() - 4, i, 1);
             }
+            canvas->draw(scorePos.x, scorePos.y, sprite["score"]);
         }
 
         void Game::update() {
@@ -90,15 +92,17 @@ namespace braille {
         }
 
         void Game::draw() const {
+            // プレイヤーの描画
             canvas->draw(player.x, min(max(4, player.y), player.maxY), sprite[
                 (player.dy > 0) ? "player1" : "player2"
             ]);
 
+            // ミサイルの描画
             for (const auto& msl : missiles) {
                 canvas->draw(msl.x, msl.y, sprite["missile"]);
             }
 
-            canvas->draw(scorePos.x, scorePos.y, sprite["score"]);
+            // スコアの描画
             for (size_t i = 0; i < 4; i++) {
                 canvas->clear(digitPos[i].x, digitPos[i].y, digitPos[i].w, digitPos[i].h);
                 canvas->draw(digitPos[i].x, digitPos[i].y, sprite[std::string{ ss.str()[i] }]);
