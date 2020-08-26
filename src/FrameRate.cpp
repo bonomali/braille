@@ -28,6 +28,6 @@ namespace braille {
     }
 
     void FrameRate::print(size_t x, size_t y) {
-        canvas->setText(110, 2, "fps: " + std::to_string(min(frameRate, maxFrameRate)));
+        canvas->setText(x, y, "fps: " + std::to_string(min(frameRate, maxFrameRate)));
     }
 }

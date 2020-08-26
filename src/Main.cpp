@@ -79,7 +79,7 @@ int main() {
         }
 
         FrameRate::endFrame();
-        FrameRate::print();
+        FrameRate::print(110, 2);
 
         std::cout.flush();
     }
