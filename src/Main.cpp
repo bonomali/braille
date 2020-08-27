@@ -54,10 +54,6 @@ int main() {
         sprite["player1"].loadFromFile("./assets/player1.txt");
         sprite["player2"] = Canvas(24, 12);
         sprite["player2"].loadFromFile("./assets/player2.txt");
-        sprite["enemy"] = Canvas(22, 12);
-        sprite["enemy"].loadFromFile("./assets/enemy.txt");
-        sprite["missile"] = Canvas(12, 12);
-        sprite["missile"].loadFromFile("./assets/missile.txt");
         sprite["gameover"] = Canvas(100, 16);
         sprite["gameover"].loadFromFile("./assets/gameover.txt");
         sprite["retry"] = Canvas(218, 16);
@@ -112,7 +108,7 @@ int main() {
         }
 
         FrameRate::endFrame();
-        //FrameRate::print(110, 2);
+        //FrameRate::print(4, 2);
 
         std::cout.flush();
     }

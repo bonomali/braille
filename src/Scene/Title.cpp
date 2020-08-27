@@ -5,10 +5,11 @@ namespace braille {
         Title::Title()
             : titlePos(GameObject{ (canvas->getWidth() - sprite["title"].getWidth()) / 2.0, 20 })
             , startPos(GameObject{ (canvas->getWidth() - sprite["start"].getWidth()) / 2.0, 144 })
-            , playerPos(GameObject{ 20, 102 })
+            , playerPos(GameObject{ 32, 102 })
             , idPos(GameObject{ 110, 43 }) {
             score = 0;
 
+            // キャンバスのクリアと枠線の追加
             canvas->clear();
             for (size_t i = 0; i < canvas->getWidth(); i++) {
                 canvas->set(i, 1, 1);
@@ -23,6 +24,7 @@ namespace braille {
                 canvas->set(canvas->getWidth() - 4, i, 1);
             }
 
+            // スプライトやテキストの描画
             canvas->draw(titlePos.x, titlePos.y, sprite["title"]);
             canvas->draw(startPos.x, startPos.y, sprite["start"]);
             canvas->draw(playerPos.x, playerPos.y, sprite["player1"]);

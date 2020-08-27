@@ -4,6 +4,7 @@
 #include <vector>
 #include <iomanip>
 #include <sstream>
+#include <random>
 #include "../Utils.h"
 #include "../SceneManager.h"
 #include "../AllocatorWrapper.h"
@@ -22,13 +23,10 @@ namespace braille {
                 double fallForce;
             };
 
-            struct Enemy : GameObject {
+            struct Pipe : GameObject {
                 double dx;
-            };
-
-            struct Missile : GameObject {
-                double dx;
-                double maxX;
+                size_t gap;
+                bool alreadyPass;
             };
 
             /// <summary>
@@ -52,9 +50,29 @@ namespace braille {
             Player player;
 
             /// <summary>
-            /// ミサイルのデータ
+            /// 土管のデータ
             /// </summary>
-            std::vector<Missile, AllocatorWrapper<Missile>> missiles;
+            std::vector<Pipe, AllocatorWrapper<Pipe>> pipes;
+
+            /// <summary>
+            /// 土管の間隔
+            /// </summary>
+            size_t pipeInterval;
+
+            /// <summary>
+            /// 乱数生成器
+            /// </summary>
+            std::random_device _rnd;
+
+            /// <summary>
+            /// メルセンヌ・ツイスタ
+            /// </summary>
+            std::mt19937 mt;
+
+            /// <summary>
+            /// 一様分布の乱数生成器
+            /// </summary>
+            std::uniform_int_distribution<> rnd;
 
         public:
             /// <summary>
@@ -71,6 +89,11 @@ namespace braille {
             /// シーンの描画
             /// </summary>
             void draw() const override;
+
+            /// <summary>
+            /// 土管の生成
+            /// </summary>
+            void makePipe();
         };
     }
 }

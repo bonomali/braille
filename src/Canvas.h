@@ -128,6 +128,17 @@ namespace braille {
         /// <param name="y">クリアする基準となるy座標</param>
         /// <param name="w">クリアする幅</param>
         /// <param name="h">クリアする高さ</param>
-        void clear(size_t x, size_t y, size_t w, size_t h);
+        void clear(size_t x, size_t y, size_t w, size_t h, size_t margin = 0);
+
+        /// <summary>
+        /// キャンバスに長方形を描画する
+        /// </summary>
+        /// <param name="x">基準となるx座標</param>
+        /// <param name="y">基準となるy座標</param>
+        /// <param name="w">長方形の幅</param>
+        /// <param name="h">長方形の高さ</param>
+        /// <param name="attr">文字の属性</param>
+        /// <param name="margin">外枠の余白</param>
+        void rect(size_t x, size_t y, size_t w, size_t h, WORD attr, size_t margin = 0);
     };
 }

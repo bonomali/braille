@@ -3,9 +3,12 @@
 namespace braille {
     namespace Scene {
         Game::Game()
-            : scorePos(GameObject{ 121, 5 }) {
+            : scorePos(GameObject{ 121, 7, sprite["score"].getWidth(), sprite["score"].getHeight() })
+            , pipeInterval(0)
+            , mt(std::mt19937{ _rnd() })
+            , rnd(std::uniform_int_distribution<>{0, 56}) {
             // プレイヤーの初期化
-            player.x = 20;
+            player.x = 32;
             player.y = 102;
             player.w = sprite["player1"].getWidth();
             player.h = sprite["player1"].getHeight();
@@ -14,15 +17,8 @@ namespace braille {
             player.dy = -player.jumpForce;
             player.fallForce = 0.8;
 
-            // ミサイルの初期化
-            Missile msl;
-            msl.x = player.x + player.w;
-            msl.y = player.y;
-            msl.w = sprite["missile"].getWidth();
-            msl.h = sprite["missile"].getHeight();
-            msl.dx = 5;
-            msl.maxX = canvas->getWidth() - sprite["missile"].getWidth() - 4;
-            missiles.push_back(msl);
+            // 土管の初期化
+            makePipe();
 
             // スコアの各桁の位置を初期化
             for (size_t i = 0; i < 4; i++) {
@@ -44,7 +40,6 @@ namespace braille {
                 canvas->set(canvas->getWidth() - 2, i, 1);
                 canvas->set(canvas->getWidth() - 4, i, 1);
             }
-            canvas->draw(scorePos.x, scorePos.y, sprite["score"]);
         }
 
         void Game::update() {
@@ -54,34 +49,44 @@ namespace braille {
             player.y += player.dy;
             if (keyInput["space"].clicked()) {
                 player.dy = -player.jumpForce;
-
-                Missile msl;
-                msl.x = player.x + player.w;
-                msl.y = min(player.y, canvas->getHeight() - sprite["missile"].getHeight());
-                msl.w = sprite["missile"].getWidth();
-                msl.h = sprite["missile"].getHeight();
-                msl.dx = 5;
-                msl.maxX = canvas->getWidth() - sprite["missile"].getWidth() - 4;
-                missiles.push_back(msl);
             }
 
-            // ミサイルの処理
-            for (auto& msl : missiles) {
-                canvas->clear(msl.x, msl.y, msl.w, msl.h);
-                msl.x += msl.dx;
+            // 土管の処理
+            pipeInterval++;
+            if (pipeInterval > 40) {
+                makePipe();
+                pipeInterval = 0;
             }
-            missiles.erase(std::remove_if(missiles.begin(), missiles.end(),
-                [](Missile msl) { return msl.maxX < msl.x; }
-            ), missiles.end());
+            for (auto& pipe : pipes) {
+                canvas->clear(pipe.x, pipe.y, pipe.w, pipe.h, 4);
+                canvas->clear(pipe.x, pipe.y + pipe.h + pipe.gap, pipe.w, canvas->getHeight() - pipe.h - 8, 4);
+                pipe.x += pipe.dx;
+                if (!pipe.alreadyPass && pipe.x < player.x) {
+                    score += 1;
+                    pipe.alreadyPass = true;
+                }
+            }
+            pipes.erase(std::remove_if(pipes.begin(), pipes.end(),
+                [](Pipe pipe) { return pipe.x + pipe.w < 4; }
+            ), pipes.end());
 
             // スコアの描画準備
             ss.str("");
             ss.clear(std::ostringstream::goodbit);
             ss << std::setw(4) << std::setfill('0') << min(score, 9999);
-            score += 1;
 
-            if (player.y < 0 || player.maxY < player.y) {
-                Game::draw();
+            // ゲームオーバー時の処理
+            bool collidePipe = false;
+            for (auto& pipe : pipes) {
+                if (isCollision(player.x, player.y, player.w, player.h, pipe.x, pipe.y, pipe.w, pipe.h) ||
+                    isCollision(player.x, player.y, player.w, player.h, pipe.x, pipe.y + pipe.h + pipe.gap, pipe.w, canvas->getHeight() - pipe.h - 8)) {
+                    collidePipe = true;
+                    break;
+                }
+            }
+
+            if (player.y < 0 || player.maxY < player.y || collidePipe) {
+                draw();
                 for (size_t sy = 0; sy < player.h / 4; sy++) {
                     for (size_t sx = 0; sx < player.w / 2; sx++) {
                         canvas->setAttr(player.x / 2 + sx, min(max(4, player.y), player.maxY) / 4 + sy, FOREGROUND_RED);
@@ -97,16 +102,30 @@ namespace braille {
                 (player.dy > 0) ? "player1" : "player2"
             ]);
 
-            // ミサイルの描画
-            for (const auto& msl : missiles) {
-                canvas->draw(msl.x, msl.y, sprite["missile"]);
+            // 土管の描画
+            for (const auto& pipe : pipes) {
+                canvas->rect(pipe.x, pipe.y, pipe.w, pipe.h, FOREGROUND_GREEN, 4);
+                canvas->rect(pipe.x, pipe.y + pipe.h + pipe.gap, pipe.w, canvas->getHeight() - pipe.h - 8, FOREGROUND_GREEN, 4);
             }
 
             // スコアの描画
+            canvas->clear(scorePos.x - 3, scorePos.y - 2, scorePos.w + (digitPos[0].w + 2) * 4 + 6, scorePos.h + 3);
+            canvas->draw(scorePos.x, scorePos.y, sprite["score"]);
             for (size_t i = 0; i < 4; i++) {
-                canvas->clear(digitPos[i].x, digitPos[i].y, digitPos[i].w, digitPos[i].h);
                 canvas->draw(digitPos[i].x, digitPos[i].y, sprite[std::string{ ss.str()[i] }]);
             }
+        }
+
+        void Game::makePipe() {
+            Pipe pipe;
+            pipe.x = canvas->getWidth() - 4;
+            pipe.y = 4;
+            pipe.w = 28;
+            pipe.h = 32 + rnd(mt); //32-88
+            pipe.dx = -3;
+            pipe.gap = 52;
+            pipe.alreadyPass = false;
+            pipes.push_back(pipe);
         }
     }
 }

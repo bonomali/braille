@@ -66,4 +66,9 @@ namespace braille {
             throwError();
         }
     }
+
+    bool isCollision(size_t x0, size_t y0, size_t w0, size_t h0
+        , size_t x1, size_t y1, size_t w1, size_t h1) {
+        return !((x0 >= x1 + w1) || (y0 >= y1 + h1) || (x0 + w0 <= x1) || (y0 + h0 <= y1));
+    }
 }

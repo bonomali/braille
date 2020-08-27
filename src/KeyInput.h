@@ -27,9 +27,9 @@ namespace braille {
             , keyState(false) {}
 
         /// <summary>
-        /// そのキーが現在のフレームで入力されたかどうか確認する
+        /// キーが押された最初の1フレームだけを確認できる
         /// </summary>
-        /// <returns>キーが入力されているかどうか</returns>
+        /// <returns>現在のフレームにキーが入力されたかどうか</returns>
         bool clicked();
     };
 }

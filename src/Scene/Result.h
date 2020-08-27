@@ -21,6 +21,11 @@ namespace braille {
             /// </summary>
             GameObject retryPos;
 
+            /// <summary>
+            /// 結果が表示されてからキー入力を受け付けるまでの時間
+            /// </summary>
+            size_t cooltime;
+
         public:
             /// <summary>
             /// シーンの初期化

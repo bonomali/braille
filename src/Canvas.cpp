@@ -42,7 +42,9 @@ namespace braille {
     void Canvas::draw(size_t x, size_t y, Canvas& spr) {
         for (size_t sy = 0; sy < spr.getHeight(); sy++) {
             for (size_t sx = 0; sx < spr.getWidth(); sx++) {
-                set(x + sx, y + sy, spr.get(sx, sy));
+                if (x + sx < width - 4 && y + sy < height - 4) {
+                    set(x + sx, y + sy, spr.get(sx, sy));
+                }
             }
         }
     }
@@ -78,11 +80,27 @@ namespace braille {
         attrs.fill(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
     }
 
-    void Canvas::clear(size_t x, size_t y, size_t w, size_t h) {
+    void Canvas::clear(size_t x, size_t y, size_t w, size_t h, size_t margin) {
         for (size_t sy = 0; sy < h; sy++) {
             for (size_t sx = 0; sx < w; sx++) {
-                set(x + sx, y + sy, 0);
-                text.set((x + sx) / 2, (y + sy) / 4, ' ');
+                if (margin < x + sx && x + sx < width - margin &&
+                    margin < y + sy && y + sy < height - margin) {
+                    set(x + sx, y + sy, 0);
+                    text.set((x + sx) / 2, (y + sy) / 4, ' ');
+                    attrs.set((x + sx) / 2, (y + sy) / 4, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+                }
+            }
+        }
+    }
+
+    void Canvas::rect(size_t x, size_t y, size_t w, size_t h, WORD attr, size_t margin) {
+        for (size_t sy = 0; sy < h; sy++) {
+            for (size_t sx = 0; sx < w; sx++) {
+                if (margin < x + sx && x + sx < width - margin &&
+                    margin < y + sy && y + sy < height - margin) {
+                    set(x + sx, y + sy, 1);
+                    setAttr((x + sx) / 2, (y + sy) / 4, attr);
+                }
             }
         }
     }
